@@ -1,0 +1,49 @@
+<!doctype <!DOCTYPE html>
+<html ng-app="chatApp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>MyApp</title>
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="core.js"></script>
+</head>
+<body ng-controller="mainController">
+	<div class="row" style="height: 90%">
+		<div class="col-md-9 panel panel-primary" style="height: 100%">
+			<h3>Chat</h3>
+			<ul class="list-group" id="messages">
+			</ul>
+		</div>
+		<div class="col-md-3 panel panel-success" style="height: 100%">
+			<h3>Users</h3>
+			<ul class="list-group" ng-repeat="user in users">
+				<li class="list-group-item">{{user.username}}</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row" style="height: 9%">
+		<div class="col-md-12">
+			<form action="" style="position: fixed; bottom: 0; width: 100%">
+				<input id="m" autocomplete="off" style="width: 90%" /> 
+				<button class="btn btn-primary" style="width: 9%">Send</button>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		var socket = io();
+		socket.emit('joinRoom', 'asd');
+		$('form').submit(function () {
+			socket.emit('private message', $('#m').val());
+			$('#m').val('');
+			return false
+		});
+		socket.on('privateMessage', function (msg) {
+			$('#messages').append($('<li>').text(msg));
+		});
+	</script>
+</body>
+</html>
