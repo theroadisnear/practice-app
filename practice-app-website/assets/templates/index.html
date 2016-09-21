@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ryx Single Page Application</title>
+
+	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/flash-message.css">
+</head>
+
+<body class="container" ng-app="app">
+	<header>
+		<ul class="nav nav-tabs">
+			<li ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Home</a></li>
+			<li ng-class="{active: activeTab === 'account'}"><a ui-sref="account">Account</a></li>
+			<li><a href="/login" target="_self">Logout</a></li>
+		</ul>
+		<div class="flash-message" ng-if="flash">
+			<div class="{{ 'alert alert-' + flash.type}}" ng-bind="flash.message">
+				
+			</div>
+		</div>
+	</header>
+	
+	<main ui-view></main>
+
+	<footer></footer>
+	<!-- external scripts -->
+	<script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="libs/angular/angular.min.js"></script>
+	<script type="text/javascript" src="libs/angular-route/angular-route.min.js"></script>
+
+	<!-- application scripts -->
+	<script type="text/javascript" src="js/core.js"></script>
+	<script type="text/javascript" src="js/services/user-services.js"></script>
+	<script type="text/javascript" src="js/services/message-service.js"></script>
+	<script type="text/javascript" src="js/controllers/main-controller.js"></script>
+	<script type="text/javascript" src="js/controllers/account-controller.js"></script>
+</body>
+
+</html>
